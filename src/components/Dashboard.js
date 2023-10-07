@@ -54,6 +54,8 @@ export function Dashboard() {
       //   lastName:"",
       //   email:"NoEmail.com"
       // }
+      const response2 = await axios.get(`https://localhost:7180/api/Department/GetDept/${response.data.departmentId}`)
+      response.data.department = response2.data
       setUserData(response.data);
     }
     getDetails();
@@ -159,8 +161,8 @@ export function Dashboard() {
                           <td>{userData.hireDate}</td>
                       </tr>
                       <tr>
-                          <td>Department ID</td>
-                          <td>{userData.departmentId}</td>
+                          <td>Department</td>
+                          <td>{userData.department.name}</td>
                       </tr>
                       {/* <tr>
                           <td>Row 7, Cell 1</td>

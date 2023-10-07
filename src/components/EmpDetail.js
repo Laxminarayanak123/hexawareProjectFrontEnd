@@ -11,8 +11,10 @@ const EmpDetail = () => {
 
     useEffect(() => {
         axios.get(`https://localhost:7180/api/Employee/GetEmpDetails/${id}`)
-        .then((resp) => {
+        .then(async(resp) => {
             console.log(resp.data);
+            const response2 = await axios.get(`https://localhost:7180/api/Department/GetDept/${resp.data.departmentId}`)
+            resp.data.departmentId = response2.data.name
             empdatachange(resp.data);
         }).catch((err) => {
             console.log(err.message);
@@ -66,7 +68,7 @@ const EmpDetail = () => {
                           <td>{empdata.hireDate}</td>
                       </tr>
                       <tr>
-                          <td>Department ID</td>
+                          <td>Department</td>
                           <td>{empdata.departmentId}</td>
                       </tr>
                       {/* <tr>
