@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import Layout from "./Layout";
 const EmpCreate = () => {
 
     const [formData, setFormData] = useState({});
+    const[depData,setDepData] =useState(null);
 
 
     const navigate=useNavigate();
@@ -15,7 +16,14 @@ const EmpCreate = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
 
-    
+    useEffect(()=>{
+        axios.get(`https://localhost:7180/api/Department/`)
+            .then((resp)=>{
+                setDepData(resp.data);
+                console.log(resp.data);
+            });
+    },[])
+
     const handlesubmit=(e)=>{
       e.preventDefault();
       
@@ -105,11 +113,17 @@ const EmpCreate = () => {
                                     </div>
                                     
 
-                                    <div className="col-lg-12">
+                                    <div className="col-lg-12" style={{marginBottom:'20px'}}>
                                         <div className="form-group">
                                         <label>
                                             Department id:
-                                            <input  name="departmentId" onChange={handleChange} className="form-control"/>
+                                            {/* <input  name="departmentId" onChange={handleChange} className="form-control"/> */}
+                                            <select name="departmentId" onChange={handleChange} className="form-control">
+                                                <option disabled selected>--select a department--</option>
+                                                {depData &&depData.map(item =>(
+                                                    <option  value={item.id}>{item.name}</option>
+                                                ))}
+                                            </select>
                                         </label>
                                         </div>
                                     </div>

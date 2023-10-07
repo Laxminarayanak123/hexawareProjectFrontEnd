@@ -12,9 +12,9 @@ const EmpEdit = () => {
     const [formData, setFormData] = useState({});
     const [data, empdatachange] = useState(null);
 
-    const [prevformData, prevsetFormData] = useState({ id:'',firstName: '',lastName: '', email: '', phoneNumber:'',hireDate:'',dateOfBirth:'',departmentId:'' });
+    const [prevformData, prevsetFormData] = useState({ id:'',firstName: '',lastName: '', email: '', phoneNumber:'',hireDate:'',dateOfBirth:'',departmentId:''});
 
-
+    const[depData,setDepData] =useState(null);
 
     const navigate=useNavigate();
 
@@ -45,13 +45,17 @@ const EmpEdit = () => {
         axios.get(`https://localhost:7180/api/Employee/GetEmpDetails/${id}`)
         .then((resp) => {
             const data = resp.data;
-           
-
-            prevsetFormData({id:data.id,firstName: data.firstName,lastName: data.lastName, email:data.email, phoneNumber:data.phoneNumber,hireDate:data.hireDate,dateOfBirth:data.dateOfBirth,departmentId:data.departmentId })
+            prevsetFormData({id:data.id,firstName: data.firstName,lastName: data.lastName, email:data.email, phoneNumber:data.phoneNumber,hireDate:data.hireDate,dateOfBirth:data.dateOfBirth,departmentId:data.departmentId})
             console.log(data);
         }).catch((err) => {
             console.log(err.message);
         })
+
+            axios.get(`https://localhost:7180/api/Department/`)
+            .then((resp)=>{
+                setDepData(resp.data);
+                console.log(resp.data);
+            });
     }, [])
    
     return (
@@ -128,11 +132,17 @@ const EmpEdit = () => {
                                     </div>
                                     
 
-                                    <div className="col-lg-12">
+                                    <div className="col-lg-12" style={{marginBottom:'20px'}}>
                                         <div className="form-group">
                                         <label>
-                                            Department id:
-                                            <input placeholder={prevformData.departmentId} name="departmentId" onChange={handleChange} className="form-control"/>
+                                            Department:
+                                            {/* <input placeholder={prevformData.departmentId} name="departmentId" onChange={handleChange} className="form-control"/> */}
+                                            <select name="departmentId" onChange={handleChange} className="form-control">
+                                                {/* <option disabled selected>--select a department--</option> */}
+                                                {depData &&depData.map(item =>(
+                                                    <option selected={item.id === prevformData.departmentId}  value={item.id}>{item.name}</option>
+                                                ))}
+                                            </select>
                                         </label>
                                         </div>
                                     </div>
