@@ -23,6 +23,7 @@ import Search from './components/Search';
 import TaxPayers from './components/TaxPayers';
 import Terms from './components/Terms';
 import CalculateTerm from './components/CalculateTerm';
+import SliderTerms from './components/SliderTerms';
 
 function App() {
 
@@ -53,6 +54,8 @@ function App() {
         <Route path='/admin/taxPayers' element={<TaxPayers />}></Route>
         <Route path='/admin/terms' element={<Terms />}></Route>
         <Route path="/calculateTerm/:id" element={<CalculateTerm />}></Route>
+        <Route path="/SliderTerms/:id" element={<SliderTerms />}></Route>
+
 
 
 

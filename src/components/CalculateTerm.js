@@ -87,7 +87,7 @@ const CalculateTerm = () => {
         <div className="tax-info-container">
         {taxInfo ? (
             <>
-                <h3 className='headerTerm' id='CurrentTerm'>Current Term(2023-2024)</h3>
+                <h3 className='headerTerm' id='CurrentTerm'>Current Year(2023-2024)</h3>
             <table className="tax-info-table">
             <thead style={{color:'#495057'}}>
               <tr>
@@ -110,27 +110,45 @@ const CalculateTerm = () => {
           {(browserUserId)?(
             <div>
                 {!taxInfo.paid?(
-                  <button onClick={() => { PayTax() }} className='buttonTax'>
-                    pay tax    
-                  </button>
+                  <div>
+                    <button onClick={() => { PayTax() }} className='buttonTax'>
+                      pay tax    
+                    </button>
+                    <div className="button-borders"  onClick={()=>{navigate(`/SliderTerms/${id}`)}}>
+                      <button className="primary-button"> Check Year Wise
+                      </button>
+                    </div>
+                  </div>
+                  
                 ):(
-                  <button onClick={() => { ViewReceipt() }} className='buttonTax'>
-                    view receipt   
-                  </button>
+                  <div>
+                    <button onClick={() => { ViewReceipt() }} className='buttonTax'>
+                      view receipt   
+                    </button>
+                    <div className="button-borders"  onClick={()=>{navigate(`/SliderTerms/${id}`)}}>
+                      <button className="primary-button"> Check Year Wise
+                      </button>
+                    </div>
+                  </div>
                 )}
+                
             </div>
             
           ):(
-              <div>
-                <select onChange={(e)=>{clickSelect(e.target.value)}}  className='venomSelect'>
-                    <option disabled selected>------- Select Term -------</option>
-                    <option value={3}>● Term(2022-2023)</option>
-                    <option  value={2}>● Term(2021-2022)</option>
-                    <option  value={1}>● Term(2020-2021)</option>
+              // <div>
+              //   <select onChange={(e)=>{clickSelect(e.target.value)}}  className='venomSelect'>
+              //       <option disabled selected>------- Select Term -------</option>
+              //       <option value={3}>● Term(2022-2023)</option>
+              //       <option  value={2}>● Term(2021-2022)</option>
+              //       <option  value={1}>● Term(2020-2021)</option>
 
-                </select>
-                  <button className='buttonForCurrent' onClick={()=>{window.location.reload()}}>Current</button>
+              //   </select>
+              //     <button className='buttonForCurrent' onClick={()=>{navigate(`/SliderTerms/${id}`)}}>Current</button>
 
+              // </div>
+              <div className="button-borders" style={{margin:'auto'}} onClick={()=>{navigate(`/SliderTerms/${id}`)}}>
+                <button className="primary-button"> Check Year Wise
+                </button>
               </div>
           )}
           

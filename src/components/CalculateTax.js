@@ -47,7 +47,8 @@ const CalculateTax = () => {
             </tbody>
           </table>
           {(browserUserId)?(
-            <div>
+            <div style={{display:'flex',justifyContent:'space-around',alignItems:'end'}}>
+              <div>
                 {!taxInfo.paid?(
                   <button onClick={() => { PayTax() }} className='buttonTax'>
                     pay tax    
@@ -57,6 +58,11 @@ const CalculateTax = () => {
                     view receipt   
                   </button>
                 )}
+              </div>
+                <div className="button-borders" onClick={()=>{navigate(`/SliderTerms/${id}`)}}>
+                  <button className="primary-button"> Check Year Wise
+                  </button>
+                </div>
             </div>
             
           ):(
